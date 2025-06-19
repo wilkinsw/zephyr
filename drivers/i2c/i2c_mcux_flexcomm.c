@@ -267,6 +267,8 @@ static int mcux_flexcomm_recover_bus(const struct device *dev)
 
 	k_sem_take(&data->lock, K_FOREVER);
 
+	I2C_MasterEnable((I2C_Type *)config->base, false);
+
 	error = gpio_pin_configure_dt(&config->scl, GPIO_OUTPUT_HIGH);
 	if (error != 0) {
 		LOG_ERR("failed to configure SCL GPIO (err %d)", error);
